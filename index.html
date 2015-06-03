@@ -2,11 +2,43 @@
 <html>
   <head lang="en">
   <meta char="UTF-8">
+  <!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" -->
+  <link href='http://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'> 
   <link rel="stylesheet" href="style.css">
+ 
   <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <!--script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script-->
   <script type="text/javascript" src="songs.js"></script>
   <title>Song Guessing Game</title>
 </head>
 <body>
+  <header id="menu">
+    <div id="menudiv">
+      <div class="menuitem" id="newsongdiv">New Song</div>
+      <div class="menuitem" id="statsdiv">Stats</div>
+    </div>
+  </header>
+  <div id="gamecontainer" class="center">
+    <div id="start" class="activestate">
+      <img id="startbutton" class="center" src="http://www.momat41.com/wp-content/uploads/2014/07/start.png">
+    </div>
+    <div id="playing" class="inactive">
+       <audio id="audio_preview" src=""></audio>
+       <form id="guessform">
+         <span id="guessprompt">Name that song or artist!</span><input id="guessinput" type="text" name="guessname" autocomplete="off">
+       </form> 
+    </div>
+    <div id="guessed" class="inactive">
+      <img id="restart" src="http://png-2.findicons.com/files/icons/744/juicy_fruit/128/refresh.png"><br>
+      <span id="answerstatus" class="correcttext">Correct</span>
+      <div id="artistinfo">
+      <span id="artist"></span><br><span id="track"></span><br><span id="album"></span><br><img id="coverart" src=""></div>
+    </div>
+    <div id="guessstats" class="inactive">
+      Correct - <span id="correctguesses"></span><br>
+      Wrong - <span id="wrongguesses"></span><br>
+      <img id="statsstatus" src="">
+    </div>
+  </div>
 </body>
 </html>

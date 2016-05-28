@@ -2,11 +2,34 @@
 <html>
   <head lang="en">
   <meta char="UTF-8">
-  <link rel="stylesheet" href="style.css">
-  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-  <script type="text/javascript" src="songs.js"></script>
+
+  <script src="libs/jquery223.js"></script>
+  <script src="libs/bootstrap336/js/bootstrap.js"></script>
+  <script src="libs/jqueryui1114/external/jquery/jquery.js"></script>
+  <script src="libs/jqueryui1114/jquery-ui.js"></script>
+
+  <link href="libs/bootstrap336/css/bootstrap.css" rel="stylesheet" type="text/css">
+
+  <link href="libs/jqueryui1114/jquery-ui.css" rel="stylesheet" type="text/css">
+
+  <link href="style.css" rel="stylesheet" type="text/css">
+
+  <script src="songs.js"></script>
+
   <title>iTunes Song Guessing Game</title>
+
 </head>
 <body>
+    <audio id="audio_preview" src="" controls></audio>
+    <div>
+        <input type="text" id="guess"><input type="button" value="check" id="check">
+    </div>
+    <ul class="lists">
+
+    </ul>
+    <audio id="history" src="" controls></audio>
+
+    <span class="test">Google</span>
+
 </body>
 </html>

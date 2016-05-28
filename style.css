@@ -1,1 +1,16 @@
+body {
+  background-image: url('assets/bgCover.jpg');
+  background-size: cover;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	box-sizing: border-box;
+	height: 100vh;
+}
 
+#history {
+  display: none;
+}
+
+.test {
+  font-size: 60px;
+}

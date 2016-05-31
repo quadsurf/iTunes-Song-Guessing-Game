@@ -1,5 +1,12 @@
 $(function() {
 
+    var numCorrect = 0;
+    var numIncorrect = 0;
+    $("#rights").text(numCorrect);
+    $("#wrongs").text(numIncorrect);
+
+    $('#reset').hide();
+
     var songIds = ["995535015", "966411602", "823593456", "956689796", "943946671",
         "982388023", "907242704", "201281527", "656801339", "910038357",
         "250038575", "878000348", "794095205", "1645339", "400835962",
@@ -27,10 +34,22 @@ $(function() {
     var songs = data.get('songs') || [];
 
     $.each(songs, function(i, song) {
-      $(".lists").append(`<li><img src="${song.songThumb}" /> ${song.songName} | Guess: ${song.guessAccuracy} | <a data-uri="${song.songClip}" href="#">Play</a></li>`);
+
+      (song.guessAccuracy == true) ?
+
+      ($("#corrects").append(`<li><a data-uri="${song.songClip}" href="#">Play</a></li><li><img src="${song.songThumb}" class="img-rounded" /></li><li>${song.songName}<hr></li>`),
+      numCorrect++,
+      $("#rights").empty().text(numCorrect)) :
+
+      ($("#incorrects").append(`<li><a data-uri="${song.songClip}" href="#">Play</a></li><li><img src="${song.songThumb}" class="img-rounded" /></li><li>${song.songName}<hr></li>`),
+      numIncorrect++,
+      $("#wrongs").empty().text(numIncorrect));
+
     });
 
-    // <audio type="audio/mp4" src="${song.songClip}" class="history" controls></audio>
+    (numCorrect === 0 && numIncorrect === 0) ?
+    ($("#reset").hide(), $("#middle li:gt(1)").hide(), $("#next").hide()) :
+    ($("#reset").show(), $("#start").hide(), $("#guess").hide(), $("#check").hide());
 
     // Random Song Generator
     function randomSongId() {
@@ -48,8 +67,6 @@ $(function() {
         albumName,
         songId;
 
-    getSong();
-
     function getSong() {
       $.ajax({
           url: "https://itunes.apple.com/us/lookup?id=" + randomSongId(),
@@ -64,17 +81,50 @@ $(function() {
           songClip = base.previewUrl;
           songName = base.trackName;
           songId = base.trackId;
-          var audioPrev = $("#audio_preview");
-          audioPrev.attr('src', songClip);
-          audioPrev.on('canplay', function() {
-            audioPrev[0].pause();
+          var audioClip = $("#audio_preview");
+          audioClip.attr('src', songClip);
+          audioClip.on('canplay', function() {
+            audioClip[0].play();
           });
       });
     };
 
-    setTimeout(function() {console.log('Song: ', songName)},1000);
-    setTimeout(function() {console.log('Artist: ', songArtist)},1500);
-    setTimeout(function() {console.log('Album: ', albumName)},2000);
+    $("#start").click(function(){
+      getSong();
+      setTimeout(function() {console.log('Song: ', songName)},1000);
+      setTimeout(function() {console.log('Artist: ', songArtist)},1500);
+      setTimeout(function() {console.log('Album: ', albumName)},2000);
+      $("#middle li:gt(1)").show();
+      $(this).hide();
+      $("#reset").show();
+      $("#next").hide();
+    });
+
+    $("#next").click(function(){
+      getSong();
+      setTimeout(function() {console.log('Song: ', songName)},1000);
+      setTimeout(function() {console.log('Artist: ', songArtist)},1500);
+      setTimeout(function() {console.log('Album: ', albumName)},2000);
+      $(this).hide();
+      $("#guess").show();
+      $("#check").show();
+      $("#history")[0].pause();
+    });
+
+    $("#reset").click(function(ev){
+      ev.preventDefault();
+      $("#audio_preview").attr('src', '');
+      $("#middle li:gt(1)").hide();
+      localStorage.clear();
+      numCorrect = 0;
+      numIncorrect = 0;
+      $("#rights").empty().append(numCorrect);
+      $("#wrongs").empty().append(numIncorrect);
+      $("#corrects li:not(':first')").remove();
+      $("#incorrects li:not(':first')").remove();
+      $(this).hide();
+      $("#start").show();
+    });
 
     $('#check').click(function() {
 
@@ -109,17 +159,26 @@ $(function() {
 
       songs.push(tempObj);
 
-      $(".lists").append(`<li><img src="${tempObj.songThumb}" /> ${tempObj.songName} | Guess: ${tempObj.guessAccuracy} | <a data-uri="${tempObj.songClip}" href="#">Play</a></li>`);
+      (tempObj.guessAccuracy == true) ?
+
+      ($("#corrects").append(`<li><img src="${tempObj.songThumb}" class="img-rounded" /> ${tempObj.songName} | <a data-uri="${tempObj.songClip}" href="#">Play</a></li>`),
+      numCorrect++,
+      $("#rights").empty().text(numCorrect)) :
+
+      ($("#incorrects").append(`<li><img src="${tempObj.songThumb}" class="img-rounded" /> ${tempObj.songName} | <a data-uri="${tempObj.songClip}" href="#">Play</a></li>`),
+      numIncorrect++,
+      $("#wrongs").empty().text(numIncorrect));
 
       data.set('songs', songs);
 
       $('#guess').val('');
-
-      getSong();
+      $("#guess").hide();
+      $(this).hide();
+      $("#next").show();
 
     });
 
-    $(".lists").on('click', 'a', function(){
+    $(".features").on('click', 'a', function(){
       var songLink = $(this).attr('data-uri');
       $("#history").attr('src', songLink);
       $("#history").on('canplay', function() {
@@ -127,5 +186,15 @@ $(function() {
         });
       });
 
+    var icon = $('.play');
+    icon.click(function() {
+       icon.toggleClass('active');
+       return false;
+    });
+
+    // function playSound(url) {
+    //   var a = new Audio(url);
+    //   a.play();
+    // }
 
 });

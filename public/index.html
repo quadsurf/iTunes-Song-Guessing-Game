@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head lang="en">
+  <meta char="UTF-8">
+
+  <script src="libs/jquery223.js"></script>
+  <script src="libs/bootstrap336/js/bootstrap.js"></script>
+  <script src="libs/jqueryui1114/external/jquery/jquery.js"></script>
+  <script src="libs/jqueryui1114/jquery-ui.js"></script>
+
+  <link href="libs/bootstrap336/css/bootstrap.css" rel="stylesheet" type="text/css">
+
+  <link href="libs/jqueryui1114/jquery-ui.css" rel="stylesheet" type="text/css">
+
+  <link href="style.css" rel="stylesheet" type="text/css">
+
+  <script src="songs.js"></script>
+
+  <title>iTunes Song Guessing Game</title>
+
+</head>
+<body>
+
+
+  <div class="toasters">
+    <div id="toastr"></div>
+    <div id="toastw"></div>
+  </div>
+
+
+  <div class="container">
+    <div>
+
+
+
+
+
+      <div class="promos">
+    <div class="promo first">
+        <ul id="corrects" class="features">
+            <li class="price"><span id="rights"></span>&nbsp; Right</li>
+        </ul>
+    </div>
+    <div class="promo second">
+        <ul id="incorrects" class="features">
+            <li class="price"><span id="wrongs"></span>&nbsp; Wrong</li>
+        </ul>
+    </div>
+    <div class="promo third scale">
+        <h4>iTunes Guessing Game</h4>
+        <span class="brief">Test Your Song Knowledge</span>
+        <ul id="middle" class="features">
+            <li class="price">
+              <button id="start" type="button">Start Game</button>
+              <button id="reset" type="button">Reset Game</button>
+            </li>
+            <li>
+              <audio id="audio_preview" src="" controls></audio>
+            </li>
+            <li style="display:flex; justify-content:center;">
+              <input type="text" id="guess" class="form-control" style="width:250px;" />
+            </li>
+            <li class="buy">
+              <button id="check">Check Your Guess</button>
+              <button id="next">Next Song</button>
+            </li>
+        </ul>
+    </div>
+</div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <audio id="history" src="" controls></audio>
+
+</body>
+</html>
